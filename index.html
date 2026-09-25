@@ -58,11 +58,46 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     overflow:hidden; text-align:center;
   }
-  .branch{ position:absolute; top:-6px; right:-28px; width:290px; height:auto; pointer-events:none; }
-  .branch path{ fill:none; stroke:var(--slate); stroke-width:1.1; stroke-linecap:round; stroke-linejoin:round;
-    stroke-dasharray:900; stroke-dashoffset:900; animation:draw 2.6s cubic-bezier(.6,.05,.3,1) .2s forwards; }
-  .branch .bud{ opacity:0; animation:bloom .9s ease 2.2s forwards; }
-  .branch .bud:nth-child(2){ animation-delay:2.45s } .branch .bud:nth-child(3){ animation-delay:2.7s } .branch .bud:nth-child(4){ animation-delay:2.95s } .branch .bud:nth-child(5){ animation-delay:3.1s }
+  /* 가지는 글자 위에 겹치지 않도록 흐름 안에 둔다 */
+  .branch{ position:relative; align-self:flex-end; width:min(300px, 82%); height:auto; margin:0 -14px 18px 0; overflow:visible; pointer-events:none; }
+  .branch .twig{ fill:none; stroke:var(--slate); stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:420; stroke-dashoffset:420; animation:draw 2.4s cubic-bezier(.6,.05,.3,1) .2s forwards; }
+  .branch .t1{ stroke-width:1.7; }
+  .branch .t2{ stroke-width:1.15; animation-delay:.9s; animation-duration:1.6s; }
+  .branch .t3{ stroke-width:.9; animation-delay:1.5s; animation-duration:1s; }
+  /* 첫 화면 왼쪽 아래, 큰 가지와 마주 보는 잔가지 */
+  .branch.low{ align-self:flex-start; width:min(150px, 42%); margin:30px 0 0 -14px; }
+  .branch.low .t1{ stroke-width:1.2; animation-delay:3.2s; animation-duration:1.6s; }
+  .branch.low .t3{ animation-delay:4s; }
+  /* 매화: 봉오리가 부풀었다가 꽃잎이 천천히 벌어진다 */
+  .fl .bd{ transform-box:fill-box; transform-origin:center; }
+  .fl .ps path{ transform-origin:0 0; }
+  .fl .bd{ fill:var(--plum); opacity:0; transform:scale(.2);
+    animation:budIn .7s ease-out var(--d) forwards, budOut .9s ease-in calc(var(--d) + .9s) forwards; }
+  .fl .ps{ transform-origin:0 0; transform:scale(.12) rotate(-40deg); opacity:0;
+    animation:open 2.2s cubic-bezier(.22,.8,.3,1) calc(var(--d) + .75s) forwards; }
+  .fl .ps path{ fill:#F1E6E7; stroke:#C9A1A8; stroke-width:.4; }
+  .fl .cr{ fill:#C79AA2; opacity:0; animation:fade .8s ease calc(var(--d) + 1.6s) forwards; }
+  .fl .st{ fill:var(--plum); stroke:#B58A92; stroke-width:.3; opacity:0; animation:fade 1s ease calc(var(--d) + 2s) forwards; }
+  .fl.half .ps{ animation-name:openHalf; }
+  .fl.half .st{ display:none; }
+  .fl.closed .bd{ animation:budIn .8s ease-out var(--d) forwards; }
+  @keyframes budIn{ to{ opacity:1; transform:scale(1) } }
+  @keyframes budOut{ to{ opacity:0; transform:scale(.6) } }
+  @keyframes open{ 0%{ opacity:0; transform:scale(.12) rotate(-40deg) } 25%{ opacity:1 } 100%{ opacity:1; transform:scale(1) rotate(0) } }
+  @keyframes openHalf{ 0%{ opacity:0; transform:scale(.12) rotate(-40deg) } 30%{ opacity:1 } 100%{ opacity:1; transform:scale(.62) rotate(-14deg) } }
+  @keyframes fade{ to{ opacity:1 } }
+  /* 꽃잎 하나가 천천히 떨어진다 (한 번) */
+  .drift{ opacity:0; animation:drift 9s cubic-bezier(.4,0,.6,1) 5.6s forwards; }
+  .drift path{ fill:#F1E6E7; stroke:#C9A1A8; stroke-width:.4; }
+  @keyframes drift{
+    0%{ opacity:0; transform:translate(0,0) rotate(0) }
+    8%{ opacity:.95 }
+    35%{ transform:translate(-18px,70px) rotate(140deg) }
+    65%{ transform:translate(6px,150px) rotate(250deg) }
+    90%{ opacity:.7 }
+    100%{ opacity:0; transform:translate(-10px,230px) rotate(380deg) }
+  }
   @keyframes draw{ to{ stroke-dashoffset:0 } }
   @keyframes bloom{ from{ opacity:0; transform:scale(.6) } to{ opacity:1; transform:scale(1) } }
 
@@ -138,6 +173,9 @@
   .addr{ margin-top:26px; font-size:15.5px; }
   .addr small{ display:block; margin-top:4px; font-size:13.5px; color:var(--ink-soft); }
   .btns{ display:flex; gap:8px; margin-top:22px; }
+  .btn.ic{ display:flex; align-items:center; justify-content:center; gap:5px; white-space:nowrap; letter-spacing:0; padding-left:4px; padding-right:4px; }
+  .btn .i{ width:16px; height:16px; flex:none; fill:none; stroke:var(--slate); stroke-width:1.3; stroke-linecap:round; stroke-linejoin:round; }
+  .btn .i .dot{ fill:var(--plum); stroke:none; }
   .btn{ flex:1; padding:13px 6px; border:1px solid var(--line); border-radius:4px; font-size:13.5px; letter-spacing:.04em; background:var(--paper); transition:background .15s, border-color .15s; text-align:center; }
   .btn:active{ background:var(--snow); border-color:var(--slate-soft); }
   .btn.fill{ background:var(--slate); color:#fff; border-color:var(--slate); }
@@ -178,7 +216,12 @@
 
   /* ───────── 끝 ───────── */
   .end{ padding-bottom:calc(60px + env(safe-area-inset-bottom,0px)); }
-  .end .bud-line{ width:60px; margin:0 auto 26px; }
+  .end .sprig{ width:120px; margin:0 auto 26px; overflow:visible; }
+  .sprig .tw{ fill:none; stroke:var(--slate); stroke-linecap:round; stroke-linejoin:round; }
+  .sfl .ps path{ fill:#F1E6E7; stroke:#C9A1A8; stroke-width:.4; }
+  .sfl .cr{ fill:#C79AA2; }
+  .sfl .st{ fill:var(--plum); stroke:#B58A92; stroke-width:.3; }
+  .sbud{ fill:var(--plum); }
   .end p{ font-size:15px; line-height:2.1; }
   .end .sig{ margin-top:14px; font-size:14px; color:var(--ink-soft); letter-spacing:.1em; }
   .share{ margin-top:44px; font-size:13px; letter-spacing:.1em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:3px; }
@@ -187,7 +230,10 @@
   .toast.on{ opacity:1; transform:translate(-50%,0); }
 
   @media (prefers-reduced-motion: reduce){
-    .branch path{ animation:none; stroke-dashoffset:0 } .branch .bud{ animation:none; opacity:1 }
+    .branch .twig{ animation:none; stroke-dashoffset:0 }
+    .fl .bd{ animation:none; opacity:0 } .fl.closed .bd{ opacity:1; transform:none }
+    .fl .ps{ animation:none; opacity:1; transform:none } .fl.half .ps{ transform:scale(.62) rotate(-14deg) }
+    .fl .cr,.fl .st{ animation:none; opacity:1 } .drift{ display:none }
     .hero-in,.cue{ animation:none; opacity:1 }
   }
   @media (min-width:481px){ body{ padding:24px 0 } .hero{ min-height:calc(100svh - 48px) } }
@@ -198,13 +244,21 @@
 
   <!-- ─────────── 첫 화면 ─────────── -->
   <section class="hero" aria-label="청첩장">
-    <svg class="branch" viewBox="0 0 300 220" aria-hidden="true">
-      <path d="M312 -8 C 262 44, 226 70, 178 96 S 96 142, 58 194 M232 62 C 226 44, 232 30, 246 20 M196 88 C 180 78, 172 66, 174 50 M142 124 C 150 108, 166 102, 184 106 M110 150 C 98 138, 96 122, 104 108 M80 170 C 90 158, 106 156, 120 162"/>
-      <g class="bud" fill="var(--plum-soft)" transform="translate(246 20)"><circle r="3.2"/><circle r="1.4" fill="var(--plum)"/></g>
-      <g class="bud" fill="var(--plum-soft)" transform="translate(174 50)"><circle r="3.6"/><circle r="1.5" fill="var(--plum)"/></g>
-      <g class="bud" fill="var(--plum-soft)" transform="translate(184 106)"><circle r="2.8"/><circle r="1.2" fill="var(--plum)"/></g>
-      <g class="bud" fill="var(--plum-soft)" transform="translate(104 108)"><circle r="3.4"/><circle r="1.4" fill="var(--plum)"/></g>
-      <g class="bud" fill="var(--plum-soft)" transform="translate(120 162)"><circle r="2.6"/><circle r="1.1" fill="var(--plum)"/></g>
+    <svg class="branch" viewBox="0 0 300 160" aria-hidden="true">
+      <path class="twig t1" d="M308 6 L276 22 C 266 28 258 34 248 40 L236 50 L200 64 C 188 70 176 80 164 88 L150 96 L118 104 C 106 110 96 118 88 124 L60 138"/>
+      <path class="twig t2" d="M236 50 L228 34 L210 22 L184 23 M164 88 L150 116 L134 134"/>
+      <path class="twig t3" d="M200 64 L194 54 M118 104 L111 93 M276 22 L282 12"/>
+      <g class="fl" style="--d:2.0s" transform="translate(252 37) rotate(10) scale(1.45)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl" style="--d:2.3s" transform="translate(203 19) rotate(-20) scale(1.35)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl" style="--d:2.6s" transform="translate(160 90) rotate(4) scale(1.6)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl half" style="--d:2.9s" transform="translate(182 74) rotate(25) scale(1.05)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl" style="--d:3.1s" transform="translate(98 113) rotate(-8) scale(1.35)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl half" style="--d:3.3s" transform="translate(135 133) rotate(35) scale(1.05)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl closed" style="--d:3.4s" transform="translate(279 20) rotate(0) scale(1.0)"><circle class="bd" r="2.6"/></g>
+      <g class="fl closed" style="--d:3.5s" transform="translate(184 23) rotate(0) scale(1.0)"><circle class="bd" r="2.6"/></g>
+      <g class="fl closed" style="--d:3.6s" transform="translate(62 137) rotate(0) scale(1.0)"><circle class="bd" r="2.6"/></g>
+      <g class="fl closed" style="--d:3.7s" transform="translate(111 93) rotate(0) scale(0.9)"><circle class="bd" r="2.6"/></g>
+      <g class="drift" style="transform-box:fill-box;transform-origin:center"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="translate(158 92) rotate(25) scale(1.5)"/></g>
     </svg>
 
     <div class="hero-in">
@@ -213,6 +267,14 @@
       <p class="names">김동찬<span class="amp en">&amp;</span>이선애</p>
       <p class="venue">서울숲 보테가마지오 로스타뇨홀</p>
     </div>
+    <svg class="branch low" viewBox="0 0 150 70" aria-hidden="true">
+      <path class="twig t1" d="M-6 66 L22 54 C 34 48 44 42 56 38 L88 30 L118 16"/>
+      <path class="twig t3" d="M56 38 L62 26 M88 30 L96 38"/>
+      <g class="fl half" style="--d:4.3s" transform="translate(70 35) rotate(-10) scale(1.25)"><circle class="bd" r="2.6"/><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <g class="fl closed" style="--d:4.1s" transform="translate(40 46) rotate(0) scale(1.0)"><circle class="bd" r="2.6"/></g>
+      <g class="fl closed" style="--d:4.5s" transform="translate(118 16) rotate(0) scale(1.0)"><circle class="bd" r="2.6"/></g>
+      <g class="fl closed" style="--d:4.6s" transform="translate(62 26) rotate(0) scale(0.85)"><circle class="bd" r="2.6"/></g>
+    </svg>
     <div class="cue" aria-hidden="true"></div>
   </section>
 
@@ -285,9 +347,9 @@
     </button>
     <p class="addr">보테가마지오 로스타뇨홀<small>서울 성동구 서울숲2길 32-14 갤러리아포레 G층 (B2)<br>문의 02-3409-0123</small></p>
     <div class="btns">
-      <a class="btn" id="mapNaver" href="#" target="_blank" rel="noopener">네이버 지도</a>
-      <a class="btn" id="mapKakao" href="#" target="_blank" rel="noopener">카카오맵</a>
-      <a class="btn" id="mapTmap" href="#" rel="noopener">티맵</a>
+      <a class="btn ic" id="mapNaver" href="#" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.6 5.6 2l4.8 1.8L14.5 2v10.4l-4.1 1.6-4.8-1.8-4.1 1.6Z"/><path d="M5.6 2v10.2M10.4 3.8V14"/></svg><span>네이버 지도</span></a>
+      <a class="btn ic" id="mapKakao" href="#" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.6s-4.8-4.5-4.8-8.1a4.8 4.8 0 0 1 9.6 0c0 3.6-4.8 8.1-4.8 8.1Z"/><circle class="dot" cx="8" cy="6.4" r="1.7"/></svg><span>카카오맵</span></a>
+      <a class="btn ic" id="mapTmap" href="#" rel="noopener"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M14 2 2 7.1l5.1 1.8L8.9 14Z"/></svg><span>티맵</span></a>
     </div>
     <div class="ways">
       <div><h3>지하철</h3><p>수인분당선 서울숲역 5번 출구에서 도보 5분<br>2호선 뚝섬역 8번 출구에서 도보 10분</p></div>
@@ -318,9 +380,13 @@
 
   <!-- ─────────── 마무리 ─────────── -->
   <section class="end">
-    <svg class="bud-line" viewBox="0 0 60 14" aria-hidden="true">
-      <path d="M2 8 C 14 4, 26 4, 34 8 S 52 12, 58 8" fill="none" stroke="var(--slate)" stroke-width="1" stroke-linecap="round"/>
-      <circle cx="34" cy="8" r="2.6" fill="var(--plum-soft)"/><circle cx="34" cy="8" r="1.1" fill="var(--plum)"/>
+    <svg class="sprig" viewBox="0 0 120 40" aria-hidden="true">
+      <path class="tw" stroke-width="1.2" d="M4 30 L30 24 C 42 21 52 20 62 20 L92 14 L114 6"/>
+      <path class="tw" stroke-width=".9" d="M62 20 L70 30 M92 14 L96 4"/>
+      <g class="sfl" transform="translate(60 19) rotate(-6) scale(1.35)"><g class="ps"><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(0)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(72)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(144)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(216)"/><path d="M0 -1 C -2.6 -1.6 -4.9 -4.4 -4.4 -7.2 C -3.9 -9.6 -1.4 -10.4 0 -9.2 C 1.4 -10.4 3.9 -9.6 4.4 -7.2 C 4.9 -4.4 2.6 -1.6 0 -1 Z" transform="rotate(288)"/></g><circle class="cr" r="1.5"/><g class="st"><line x1="1.58" y1="0.28" x2="3.05" y2="0.54"/><circle cx="3.05" cy="0.54" r=".5"/><line x1="0.92" y1="1.31" x2="2.06" y2="2.95"/><circle cx="2.06" cy="2.95" r=".5"/><line x1="-0.28" y1="1.58" x2="-0.54" y2="3.05"/><circle cx="-0.54" cy="3.05" r=".5"/><line x1="-1.31" y1="0.92" x2="-2.95" y2="2.06"/><circle cx="-2.95" cy="2.06" r=".5"/><line x1="-1.58" y1="-0.28" x2="-3.05" y2="-0.54"/><circle cx="-3.05" cy="-0.54" r=".5"/><line x1="-0.92" y1="-1.31" x2="-2.06" y2="-2.95"/><circle cx="-2.06" cy="-2.95" r=".5"/><line x1="0.28" y1="-1.58" x2="0.54" y2="-3.05"/><circle cx="0.54" cy="-3.05" r=".5"/><line x1="1.31" y1="-0.92" x2="2.95" y2="-2.06"/><circle cx="2.95" cy="-2.06" r=".5"/></g></g>
+      <circle class="sbud" cx="33" cy="23" r="2.34"/>
+      <circle class="sbud" cx="96" cy="5" r="2.21"/>
+      <circle class="sbud" cx="70" cy="31" r="2.08"/>
     </svg>
     <p>귀한 걸음으로 함께해 주셔서<br>진심으로 감사합니다.</p>
     <p class="sig">김동찬 · 이선애 올림</p>
@@ -339,6 +405,7 @@
    ──────────────────────────────────────────────── */
 var WEDDING = {
   dateTime: "2027-02-27T15:30:00+09:00",
+  timeText: "오후 3시 30분",                     /* 당일 문구에 쓰이는 시간 */
   venueQuery: "보테가마지오",                    /* 카카오맵·티맵에서 검색할 이름 */
   naverUrl: "https://naver.me/xtHTbTQR",         /* 웨딩홀 네이버 지도 링크 */
   kakaoUrl: "https://map.kakao.com/?urlX=509477&urlY=1123906&urlLevel=3&map_type=TYPE_MAP&map_hybrid=false",
@@ -346,7 +413,8 @@ var WEDDING = {
            father: { name: "김영식", phone: "010-3517-4552" },
            mother: { name: "정은숙", phone: "010-9555-4552" },
            accounts: [ ["신랑 김동찬","국민은행","618701-04-169224"],
-                       ["아버지 김영식","농협","778-12-121656"] ] },
+                       ["아버지 김영식","농협","778-12-121656"],
+                       ["어머니 정은숙","농협","302-0454-5601-71"] ] },
   bride: { name: "이선애", phone: "010-6456-7514",
            father: null,                                 /* 연락처를 넣지 않을 분은 null */
            mother: { name: "권성희", phone: "010-3080-7527" },
@@ -356,21 +424,35 @@ var WEDDING = {
 (function(){
   var $ = function(id){ return document.getElementById(id); };
 
-  /* 디데이 */
+  /* 디데이: 한국 시간 기준 날짜로 계산 */
   var target = new Date(WEDDING.dateTime).getTime();
   var dd=$('dd'), dh=$('dh'), dm=$('dm'), ds=$('ds'), dmsg=$('dmsg'), ddayBox=$('dday');
   function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function kstDay(t){ return Math.floor((t + 9 * 36e5) / 864e5); }
+  var weddingDay = kstDay(target);
   function tick(){
-    var diff = target - Date.now();
-    if (diff <= 0) {
-      ddayBox.style.display = 'none';
-      dmsg.innerHTML = '오늘, 두 사람이 <b>부부</b>가 되는 날입니다';
+    var now = Date.now(), diff = target - now, today = kstDay(now);
+    if (diff > 0) {
+      var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
+      dd.textContent = d; dh.textContent = pad(h); dm.textContent = pad(m); ds.textContent = pad(s);
+      ddayBox.style.display = '';
+      if (today === weddingDay) {
+        dmsg.innerHTML = '오늘 ' + WEDDING.timeText + ', 두 사람이 <b>부부</b>가 됩니다';
+      } else if (weddingDay - today === 1) {
+        dmsg.innerHTML = '내일 ' + WEDDING.timeText + ', 두 사람이 <b>부부</b>가 됩니다';
+      } else {
+        dmsg.innerHTML = '두 사람의 결혼식까지 <b>' + d + '일</b> 남았습니다';
+      }
+      setTimeout(tick, 1000);
       return;
     }
-    var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
-    dd.textContent = d; dh.textContent = pad(h); dm.textContent = pad(m); ds.textContent = pad(s);
-    dmsg.innerHTML = '두 사람의 결혼식까지 <b>' + d + '일</b> 남았습니다';
-    setTimeout(tick, 1000);
+    ddayBox.style.display = 'none';
+    if (today === weddingDay) {
+      dmsg.innerHTML = '오늘, 두 사람이 <b>부부</b>가 되었습니다';
+    } else {
+      dmsg.innerHTML = '함께해 주셔서 감사합니다<br>두 사람이 부부가 된 지 <b>' + (today - weddingDay + 1) + '일</b>째입니다';
+    }
+    setTimeout(tick, 60000);
   }
   tick();
 
