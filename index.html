@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>○○○ &amp; ○○○ 결혼합니다</title>
-<meta property="og:title" content="○○○ ♥ ○○○ 결혼합니다">
-<meta property="og:description" content="2027년 2월 20일 토요일 오후 1시 · ○○웨딩홀">
+<title>김동찬 &amp; 이선애 결혼합니다</title>
+<meta property="og:title" content="김동찬 ♥ 이선애 결혼합니다">
+<meta property="og:description" content="2027년 2월 27일 토요일 오후 3시 30분 · 서울숲 보테가마지오 로스타뇨홀">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,11 +76,6 @@
   .hero .venue{ margin-top:10px; font-size:14px; color:var(--ink-soft); letter-spacing:.04em; }
   .cue{ position:absolute; bottom:calc(28px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); width:1px; height:44px; background:linear-gradient(var(--slate-soft),transparent); opacity:0; animation:rise 1s ease 2.4s forwards; }
 
-  /* 눈 */
-  .snow{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-  .snow i{ position:absolute; top:-12px; border-radius:50%; background:var(--slate); opacity:.22; animation:fall linear infinite; }
-  @keyframes fall{ to{ transform:translate3d(var(--dx),108vh,0) } }
-
   /* ───────── 대표 사진 ───────── */
   .cover{ padding:0; }
   .ph{ position:relative; width:100%; aspect-ratio:3/4; background:linear-gradient(170deg,#E9ECEF 0%,#F4F5F6 60%,#EAE6E7 100%); display:flex; align-items:center; justify-content:center; overflow:hidden; }
@@ -91,10 +86,20 @@
 
   /* ───────── 초대 글 ───────── */
   .invite p{ font-size:15.5px; line-height:2.15; color:var(--ink); }
-  .parents{ margin-top:52px; display:grid; gap:14px; font-size:15px; }
-  .parents .who{ color:var(--ink-soft); font-size:13.5px; margin-right:.6em; }
+  /* 두 줄이 같은 열에 맞춰지도록 한 개의 격자로 배치 */
+  .parents{
+    margin-top:52px; display:grid; justify-content:center; align-items:baseline;
+    grid-template-columns:auto 22px auto auto auto auto auto;
+    row-gap:16px; font-size:15px;
+  }
+  .parents > div{ display:contents; }
+  .parents .who{ font-size:16.5px; font-weight:700; letter-spacing:.14em; color:var(--slate); margin-right:10px; text-align:right; }
+  .parents .mark{ text-align:right; padding-right:4px; }
+  .parents .late{ color:var(--plum); font-size:12px; position:relative; top:-1px; }
   .parents b{ font-weight:700; letter-spacing:.06em; }
-  .parents .rel{ color:var(--ink-soft); font-size:13.5px; margin:0 .35em; }
+  .parents .dot{ color:var(--ink-soft); margin:0 .45em; }
+  .parents .rel{ color:var(--ink-soft); font-size:13.5px; margin:0 .5em 0 .15em; }
+  .parents .child{ font-size:16px; }
 
   /* ───────── 달력 ───────── */
   .when{ font-size:16px; letter-spacing:.04em; }
@@ -178,7 +183,7 @@
 
   @media (prefers-reduced-motion: reduce){
     .branch path{ animation:none; stroke-dashoffset:0 } .branch .bud{ animation:none; opacity:1 }
-    .hero-in,.cue{ animation:none; opacity:1 } .snow{ display:none }
+    .hero-in,.cue{ animation:none; opacity:1 }
   }
   @media (min-width:481px){ body{ padding:24px 0 } .hero{ min-height:calc(100svh - 48px) } }
 </style>
@@ -188,7 +193,6 @@
 
   <!-- ─────────── 첫 화면 ─────────── -->
   <section class="hero" aria-label="청첩장">
-    <div class="snow" id="snow" aria-hidden="true"></div>
     <svg class="branch" viewBox="0 0 300 220" aria-hidden="true">
       <path d="M312 -8 C 262 44, 226 70, 178 96 S 96 142, 58 194 M232 62 C 226 44, 232 30, 246 20 M196 88 C 180 78, 172 66, 174 50 M142 124 C 150 108, 166 102, 184 106 M110 150 C 98 138, 96 122, 104 108 M80 170 C 90 158, 106 156, 120 162"/>
       <g class="bud" fill="var(--plum-soft)" transform="translate(246 20)"><circle r="3.2"/><circle r="1.4" fill="var(--plum)"/></g>
@@ -199,10 +203,10 @@
     </svg>
 
     <div class="hero-in">
-      <p class="num en">02.20<small>2027</small></p>
-      <p class="words">이천이십칠년 이월 스무날<br>토요일 오후 한 시</p>
-      <p class="names">○○○<span class="amp en">&amp;</span>○○○</p>
-      <p class="venue">○○웨딩홀 ○층 ○○홀</p>
+      <p class="num en">02.27<small>2027</small></p>
+      <p class="words">이천이십칠년 이월 스물이렛날<br>토요일 오후 세 시 반</p>
+      <p class="names">김동찬<span class="amp en">&amp;</span>이선애</p>
+      <p class="venue">서울숲 보테가마지오 로스타뇨홀</p>
     </div>
     <div class="cue" aria-hidden="true"></div>
   </section>
@@ -225,23 +229,23 @@
       큰 기쁨으로 간직하겠습니다.
     </p>
     <div class="parents">
-      <div><span class="who">신랑</span><b>○○○</b> <span class="rel">·</span> <b>○○○</b><span class="rel">의 아들</span><b>○○</b></div>
-      <div><span class="who">신부</span><b>○○○</b> <span class="rel">·</span> <b>○○○</b><span class="rel">의 딸</span><b>○○</b></div>
+      <div><span class="who">신랑</span><span class="mark"></span><b>김영식</b><span class="dot">·</span><b>정은숙</b><span class="rel">의 장남</span><b class="child">동찬</b></div>
+      <div><span class="who">신부</span><span class="mark"><span class="late" role="img" aria-label="고인">✿</span></span><b>이봉종</b><span class="dot">·</span><b>권성희</b><span class="rel">의 장녀</span><b class="child">선애</b></div>
     </div>
   </section>
 
   <!-- ─────────── 예식 안내 ─────────── -->
   <section class="calendar">
     <div class="h"><h2>예식 안내</h2></div>
-    <p class="when"><span class="en">2027 . 02 . 20</span>토요일 오후 1시<br>○○웨딩홀 ○층 ○○홀</p>
+    <p class="when"><span class="en">2027 . 02 . 27</span>토요일 오후 3시 30분<br>서울숲 보테가마지오 로스타뇨홀</p>
     <div class="cal">
       <table aria-label="2027년 2월 달력">
         <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
         <tbody>
           <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
           <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-          <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td class="day">20</td></tr>
-          <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+          <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+          <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td class="day">27</td></tr>
           <tr><td>28</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
@@ -284,29 +288,16 @@
         <text x="200" y="215" text-anchor="middle" font-size="12" fill="#6B7278" font-family="Gowun Batang, serif" letter-spacing="2">지도 자리</text>
       </svg>
     </div>
-    <p class="addr">○○웨딩홀<small>○○시 ○○구 ○○로 ○○ · ○○웨딩홀 000-000-0000</small></p>
+    <p class="addr">보테가마지오 로스타뇨홀<small>서울 성동구 서울숲2길 32-14 갤러리아포레 G층 (B2)<br>문의 02-3409-0123</small></p>
     <div class="btns">
       <a class="btn" id="mapNaver" href="#" target="_blank" rel="noopener">네이버 지도</a>
       <a class="btn" id="mapKakao" href="#" target="_blank" rel="noopener">카카오맵</a>
       <a class="btn" id="mapTmap" href="#" rel="noopener">티맵</a>
     </div>
     <div class="ways">
-      <div><h3>지하철</h3><p>○호선 ○○역 ○번 출구에서 도보 ○분</p></div>
-      <div><h3>버스</h3><p>○○ 정류장 하차 · 간선 000, 지선 0000</p></div>
-      <div><h3>자가용</h3><p>내비게이션에 "○○웨딩홀" 검색<br>건물 지하 주차장 ○시간 무료, 안내데스크에서 주차 등록</p></div>
-      <div><h3>셔틀버스</h3><p>○○역 ○번 출구 앞에서 ○분 간격 운행</p></div>
-    </div>
-  </section>
-
-  <!-- ─────────── 안내 ─────────── -->
-  <section class="info">
-    <div class="h"><h2>안내 말씀</h2></div>
-    <div class="notes">
-      <div><h3>식사</h3><p>예식 후 ○층 연회장에서 뷔페가 준비되어 있습니다.<br>오후 ○시부터 ○시까지 이용하실 수 있습니다.</p></div>
-      <div><h3>화환</h3><p>축하해 주시는 마음만 감사히 받겠습니다.<br>화환은 정중히 사양합니다.</p></div>
-      <div><h3>참석 여부</h3><p>준비에 참고할 수 있도록 참석 여부를 알려주시면 감사하겠습니다.</p>
-        <div class="btns"><a class="btn fill" id="rsvp" href="#" target="_blank" rel="noopener">참석 여부 알려주기</a></div>
-      </div>
+      <div><h3>지하철</h3><p>수인분당선 서울숲역 5번 출구에서 도보 5분<br>2호선 뚝섬역 8번 출구에서 도보 10분</p></div>
+      <div><h3>버스</h3><p>뚝섬 서울숲 정류장 하차 · 간선 121, 141, 145, 148, 463<br>성동구민 종합체육센터 정류장 하차 · 지선 2014, 2224, 2413<br>뚝섬역 8번 출구 정류장 하차 · 지선 2016, 2224, 2413</p></div>
+      <div><h3>자가용</h3><p>내비게이션에 "보테가마지오" 또는 "갤러리아포레" 검색<br>건물 지하 B3~B7 주차, 안내데스크에서 등록 시 2시간 무료</p></div>
     </div>
   </section>
 
@@ -337,7 +328,7 @@
       <circle cx="34" cy="8" r="2.6" fill="var(--plum-soft)"/><circle cx="34" cy="8" r="1.1" fill="var(--plum)"/>
     </svg>
     <p>귀한 걸음으로 함께해 주셔서<br>진심으로 감사합니다.</p>
-    <p class="sig">○○○ · ○○○ 올림</p>
+    <p class="sig">김동찬 · 이선애 올림</p>
     <button class="share" id="shareBtn" type="button">청첩장 링크 복사</button>
   </section>
 </div>
@@ -348,42 +339,22 @@
    여기 값만 바꾸면 청첩장 내용이 바뀝니다.
    ──────────────────────────────────────────────── */
 var WEDDING = {
-  dateTime: "2027-02-20T13:00:00+09:00",
-  venueName: "○○웨딩홀",
-  venueQuery: "○○웨딩홀",              /* 지도 앱에서 검색할 이름 */
-  rsvpUrl: "https://forms.google.com",  /* 참석 여부 폼 링크 */
-  groom: { name: "○○○", phone: "010-0000-0000",
-           father: { name: "○○○", phone: "010-0000-0000" },
-           mother: { name: "○○○", phone: "010-0000-0000" },
-           accounts: [ ["신랑 ○○○","○○은행","000-0000-0000"],
-                       ["아버지 ○○○","○○은행","000-0000-0000"],
-                       ["어머니 ○○○","○○은행","000-0000-0000"] ] },
-  bride: { name: "○○○", phone: "010-0000-0000",
-           father: { name: "○○○", phone: "010-0000-0000" },
-           mother: { name: "○○○", phone: "010-0000-0000" },
-           accounts: [ ["신부 ○○○","○○은행","000-0000-0000"],
-                       ["아버지 ○○○","○○은행","000-0000-0000"],
-                       ["어머니 ○○○","○○은행","000-0000-0000"] ] }
+  dateTime: "2027-02-27T15:30:00+09:00",
+  venueQuery: "보테가마지오",                    /* 카카오맵·티맵에서 검색할 이름 */
+  naverUrl: "https://naver.me/xtHTbTQR",         /* 웨딩홀 네이버 지도 링크 */
+  groom: { name: "김동찬", phone: "010-7266-4552",
+           father: { name: "김영식", phone: "010-3517-4552" },
+           mother: { name: "정은숙", phone: "010-9555-4552" },
+           accounts: [ ["신랑 김동찬","국민은행","618701-04-169224"],
+                       ["아버지 김영식","농협","778-12-121656"] ] },
+  bride: { name: "이선애", phone: "010-6456-7514",
+           father: null,                                 /* 연락처를 넣지 않을 분은 null */
+           mother: { name: "권성희", phone: "010-3080-7527" },
+           accounts: [ ["신부 이선애","○○은행","계좌번호 확인 중"] ] }   /* 신부 측 계좌는 확인 후 채우기 */
 };
 
 (function(){
   var $ = function(id){ return document.getElementById(id); };
-
-  /* 눈 */
-  var snow = $('snow');
-  if (snow && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    for (var i = 0; i < 26; i++) {
-      var f = document.createElement('i');
-      var size = 2 + Math.random() * 3;
-      f.style.left = Math.random() * 100 + '%';
-      f.style.width = f.style.height = size + 'px';
-      f.style.setProperty('--dx', (Math.random() * 60 - 30) + 'px');
-      f.style.animationDuration = (14 + Math.random() * 14) + 's';
-      f.style.animationDelay = (-Math.random() * 28) + 's';
-      f.style.opacity = 0.12 + Math.random() * 0.18;
-      snow.appendChild(f);
-    }
-  }
 
   /* 디데이 */
   var target = new Date(WEDDING.dateTime).getTime();
@@ -405,10 +376,9 @@ var WEDDING = {
 
   /* 지도 링크 */
   var q = encodeURIComponent(WEDDING.venueQuery);
-  $('mapNaver').href = 'https://map.naver.com/p/search/' + q;
+  $('mapNaver').href = WEDDING.naverUrl;
   $('mapKakao').href = 'https://map.kakao.com/?q=' + q;
   $('mapTmap').href = 'tmap://search?name=' + q;
-  $('rsvp').href = WEDDING.rsvpUrl;
 
   /* 계좌 */
   function accounts(list, el){
@@ -425,10 +395,11 @@ var WEDDING = {
 
   /* 연락처 */
   function side(title, p){
-    return '<div><h3>' + title + '</h3>' +
-      '<a href="tel:' + p.phone + '"><span>' + (title === '신랑 측' ? '신랑' : '신부') + '</span>' + p.name + '</a>' +
-      '<a href="tel:' + p.father.phone + '"><span>아버지</span>' + p.father.name + '</a>' +
-      '<a href="tel:' + p.mother.phone + '"><span>어머니</span>' + p.mother.name + '</a></div>';
+    var h = '<div><h3>' + title + '</h3>' +
+      '<a href="tel:' + p.phone + '"><span>' + (title === '신랑 측' ? '신랑' : '신부') + '</span>' + p.name + '</a>';
+    if (p.father) h += '<a href="tel:' + p.father.phone + '"><span>아버지</span>' + p.father.name + '</a>';
+    if (p.mother) h += '<a href="tel:' + p.mother.phone + '"><span>어머니</span>' + p.mother.name + '</a>';
+    return h + '</div>';
   }
   $('contacts').innerHTML = side('신랑 측', WEDDING.groom) + side('신부 측', WEDDING.bride);
 
