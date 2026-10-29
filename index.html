@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
 <title>김동찬 &amp; 이선애 결혼합니다</title>
 <meta property="og:title" content="김동찬 ♥ 이선애 결혼합니다">
 <meta property="og:description" content="2027. 2. 27. 토요일 오후 3시 30분 · 서울숲 보테가마지오">
@@ -22,9 +23,11 @@
     --ink:#2B312C;
     --ink-soft:#67706A;
     --moss:#6C7D64;
+    --moss-deep:#67775F;
     --moss-soft:#C8D3C0;
     --line:#DCE2D6;
     --leaf:#7E9468;
+    --leaf-deep:#677955;
     --leaf-soft:#D3DEC6;
 
     --pad: clamp(20px, 7.5vw, 34px);
@@ -103,7 +106,7 @@
   .hero-in{ position:relative; opacity:0; animation:rise 1.1s ease .6s forwards; }
   @keyframes rise{ from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
   .hero .num{ font-size:clamp(60px, 20vw, 86px); font-weight:300; letter-spacing:.06em; line-height:1; color:var(--ink); }
-  .hero .num small{ display:block; font-size:clamp(18px, 5.6vw, 23px); font-weight:400; letter-spacing:.32em; margin-top:10px; padding-left:.32em; color:var(--moss); }
+  .hero .num small{ display:block; font-size:clamp(18px, 5.6vw, 23px); font-weight:400; letter-spacing:.32em; margin-top:10px; padding-left:.32em; color:var(--moss-deep); }
   .hero .words{ margin-top:clamp(16px,3svh,28px); font-size:var(--fs-s); color:var(--ink-soft); letter-spacing:.06em; }
   .hero .names{ margin-top:clamp(22px,4.4svh,40px); font-size:clamp(19px, 5.9vw, 24px); white-space:nowrap; letter-spacing:.14em; }
   .hero .names .amp{ font-style:italic; font-weight:300; font-size:1.13em; color:var(--leaf); margin:0 .35em; letter-spacing:0; }
@@ -122,7 +125,7 @@
     row-gap:16px; font-size:clamp(13.5px, 3.9vw, 15.5px);
   }
   .parents > div{ display:contents; }
-  .parents .who{ font-size:1.08em; font-weight:700; letter-spacing:.14em; color:var(--moss); margin-right:10px; text-align:right; }
+  .parents .who{ font-size:1.08em; font-weight:700; letter-spacing:.14em; color:var(--moss-deep); margin-right:10px; text-align:right; }
   .parents .mark{ text-align:right; padding-right:4px; }
   .parents .late{ color:var(--ink-soft); font-size:12px; position:relative; top:-1px; }
   .parents b{ font-weight:700; letter-spacing:.06em; }
@@ -136,15 +139,15 @@
   .cal-m{ font-size:var(--fs); letter-spacing:.2em; padding-left:.2em; color:var(--ink); margin-bottom:14px; }
   .cal table{ width:100%; border-collapse:collapse; }
   .cal th{ font-weight:400; font-size:11.5px; letter-spacing:.12em; color:var(--ink-soft); padding-bottom:10px; }
-  .cal th:first-child,.cal td:first-child{ color:var(--leaf); }
+  .cal th:first-child,.cal td:first-child{ color:var(--leaf-deep); }
   .cal td{ font-size:14.5px; height:38px; text-align:center; position:relative; color:var(--ink); }
   .cal td.day{ color:#fff; font-weight:700; z-index:0; }
-  .cal td.day::before{ content:""; position:absolute; left:50%; top:50%; width:32px; height:32px; transform:translate(-50%,-50%); border-radius:50%; background:var(--leaf); z-index:-1; }
+  .cal td.day::before{ content:""; position:absolute; left:50%; top:50%; width:32px; height:32px; transform:translate(-50%,-50%); border-radius:50%; background:var(--leaf-deep); z-index:-1; }
   .dday{ margin-top:30px; }
   .dday b{ display:block; font-size:clamp(40px, 12.5vw, 54px); font-weight:300; line-height:1; letter-spacing:.04em; color:var(--leaf); }
   .dday small{ display:block; margin-top:10px; font-size:12px; letter-spacing:.14em; color:var(--ink-soft); }
   .dmsg{ margin-top:22px; font-size:14px; color:var(--ink-soft); }
-  .dmsg b{ color:var(--leaf); font-weight:700; }
+  .dmsg b{ color:var(--leaf-deep); font-weight:700; }
 
   .pic{ display:block; width:100%; padding:0; cursor:zoom-in; background:var(--bg); }
   .pic img{ width:100%; height:auto; }
@@ -153,10 +156,14 @@
   .pair .lower{ margin-top:clamp(28px, 10vw, 52px); }
   .bleed{ width:calc(100% + var(--pad) * 2); margin:0 calc(var(--pad) * -1); }
   .lb{ position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(250,251,246,.97);
-    padding:calc(56px + env(safe-area-inset-top,0px)) 12px calc(24px + env(safe-area-inset-bottom,0px)); cursor:zoom-out; }
+    padding:calc(56px + env(safe-area-inset-top,0px)) 0 calc(64px + env(safe-area-inset-bottom,0px)); cursor:zoom-out; }
   .lb.on{ display:flex; }
   .lb img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
   .lb .close{ position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); right:12px; font-size:13.5px; letter-spacing:.06em; padding:9px 14px; background:var(--ink); color:#fff; border-radius:3px; }
+  .lb .nav{ position:fixed; left:50%; bottom:calc(10px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); display:flex; align-items:center; gap:6px; font-size:13px; letter-spacing:.12em; color:var(--ink-soft); font-variant-numeric:lining-nums tabular-nums; cursor:default; }
+  .lb .nav span{ min-width:64px; text-align:center; }
+  .lb .nav button{ width:44px; height:44px; display:flex; align-items:center; justify-content:center; }
+  .lb .nav svg{ width:18px; height:18px; fill:none; stroke:var(--ink); stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
 
   .map{ position:relative; display:block; width:calc(100% + var(--pad) * 2); margin:0 calc(var(--pad) * -1); padding:0; background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); cursor:zoom-in; }
   .map img{ width:100%; height:auto; }
@@ -168,23 +175,20 @@
   .addr{ margin-top:26px; font-size:var(--fs); }
   .addr-copy{ margin-top:12px; }
   .addr small{ display:block; margin-top:4px; font-size:var(--fs-s); color:var(--ink-soft); }
+  .addr a{ text-decoration:underline; text-decoration-color:var(--moss-soft); text-underline-offset:3px; }
   .btns{ display:flex; gap:8px; margin-top:22px; }
   .btn.ic{ display:flex; align-items:center; justify-content:center; gap:5px; white-space:nowrap; letter-spacing:0; padding-left:4px; padding-right:4px; }
   .btn .i{ width:16px; height:16px; flex:none; fill:none; stroke:var(--moss); stroke-width:1.3; stroke-linecap:round; stroke-linejoin:round; }
   .btn .i .dot{ fill:var(--leaf); stroke:none; }
   .btn{ flex:1; padding:13px 6px; border:1px solid var(--line); border-radius:4px; font-size:13.5px; letter-spacing:.04em; background:var(--paper); transition:background .15s, border-color .15s; text-align:center; }
   .btn:active{ background:var(--bg); border-color:var(--moss-soft); }
-  .train{ margin-top:40px; padding:22px 20px 20px; background:var(--bg); border-radius:4px; text-align:left; }
-  .train h3{ font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--moss); margin-bottom:6px; }
-  .train p{ font-size:var(--fs-s); text-wrap:wrap; }
-  .train .thanks{ margin-bottom:8px; }
   .ways{ margin-top:40px; text-align:left; display:grid; gap:22px; }
-  .ways h3{ font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--moss); margin-bottom:4px; }
+  .ways h3{ font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--moss-deep); margin-bottom:4px; }
   .ways p{ font-size:var(--fs-s); color:var(--ink); }
   .ways .stop + .stop{ margin-top:8px; }
   .ways details.bus{ border:0; }
-  .ways details.bus summary{ padding:0 0 4px; justify-content:flex-start; gap:10px; font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--moss); }
-  .ways details.bus summary::after{ order:3; width:6px; height:6px; border-color:var(--moss); margin:0 0 3px -4px; }
+  .ways details.bus summary{ padding:0 0 4px; justify-content:flex-start; gap:10px; font-size:14px; font-weight:700; letter-spacing:.1em; color:var(--moss-deep); }
+  .ways details.bus summary::after{ order:3; width:6px; height:6px; border-color:var(--moss-deep); margin:0 0 3px -4px; }
   .ways details.bus summary::before{ content:"정류장 보기"; order:2; font-weight:400; font-size:12px; letter-spacing:.04em; color:var(--ink-soft); }
   .ways details.bus[open] summary::before{ content:"접기"; }
   .ways .stop span{ display:block; font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
@@ -208,9 +212,10 @@
   .contacts{ display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .contacts > div{ padding:22px 8px; }
   .contacts > div + div{ border-left:1px solid var(--line); }
-  .contacts h3{ font-size:13px; font-weight:400; letter-spacing:.16em; color:var(--moss); margin-bottom:12px; }
+  .contacts h3{ font-size:13px; font-weight:400; letter-spacing:.16em; color:var(--moss-deep); margin-bottom:12px; }
   .contacts a{ display:block; font-size:14.5px; line-height:2.1; }
   .contacts a span{ color:var(--ink-soft); font-size:13px; margin-right:6px; }
+  .contacts .tel{ display:inline-block; width:13px; height:13px; margin-left:6px; vertical-align:-1px; fill:none; stroke:var(--moss); stroke-width:1.3; stroke-linecap:round; stroke-linejoin:round; }
 
   .end{ padding-bottom:calc(60px + env(safe-area-inset-bottom,0px)); }
   .end .sprig{ width:120px; margin:0 auto 26px; overflow:visible; }
@@ -275,7 +280,7 @@
   </section>
 
   <section class="cover" aria-label="대표 사진">
-    <button class="pic" type="button" aria-label="사진 크게 보기"><img src="cover.jpg" width="1080" height="1620" decoding="async" alt="정원 창가 앞에서 팔짱을 끼고 선 두 사람"></button>
+    <button class="pic" type="button" aria-label="사진 크게 보기"><img src="cover.jpg" width="1080" height="1620" decoding="async" alt="Bride and groom standing side by side under the trees"></button>
   </section>
 
   <section class="invite">
@@ -322,21 +327,32 @@
   <section class="gallery">
     <div class="h"><h2>갤러리</h2></div>
     <div class="gal">
-      <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-1.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="밝은 배경 앞에서 활짝 웃는 신랑과 어깨에 손을 얹은 신부"></button>
+      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-1.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="Bride and groom sitting against a white wall, laughing playfully"></button>
       <div class="pair">
-        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-2.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="정원에서 손을 맞잡고 함께 웃는 두 사람"></button>
-        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-3.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="부케를 내려다보며 미소 짓는 신부"></button>
+        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-2.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Groom kissing the back of the bride's hand"></button>
+        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-3.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride in a black dress smiling down at her bouquet"></button>
       </div>
-      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-4.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="드레스 자락을 펼치고 정원에 선 신부"></button>
+      <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-4.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Groom beaming against a bright backdrop with the bride's hand on his shoulder"></button>
       <div class="pair">
-        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-5.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="검은 드레스를 입고 부케를 내려다보며 웃는 신부"></button>
-        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-6.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="의자에 다리를 꼬고 앉아 웃는 신랑"></button>
+        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-5.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride and groom sitting side by side, smiling at the bouquet"></button>
+        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-6.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride and groom walking up the stairs together, smiling"></button>
       </div>
-      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-7.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="소파에 앉은 신랑과 검은 드레스를 입고 선 신부"></button>
+      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-7.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="Groom seated on a sofa beside the bride in a black dress"></button>
       <div class="pair">
-        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-8.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="나란히 앉아 부케를 보며 웃는 두 사람"></button>
-        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-9.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="계단을 함께 오르며 웃는 두 사람"></button>
+        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-8.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Groom smiling in a chair with his legs crossed"></button>
+        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-9.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Groom beaming in front of a dark wooden wall"></button>
       </div>
+      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-10.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="Bride and groom standing arm in arm by a garden window"></button>
+      <div class="pair">
+        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-11.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride and groom holding hands and smiling in the garden"></button>
+        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-12.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride smiling down at her bouquet"></button>
+      </div>
+      <button class="pic bleed" type="button" aria-label="사진 크게 보기"><img src="gallery-13.jpg" loading="lazy" width="1080" height="1620" decoding="async" alt="Bride standing in the garden with her train spread out"></button>
+      <div class="pair">
+        <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-14.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Groom smiling as he adjusts his tie in the garden"></button>
+        <button class="pic lower" type="button" aria-label="사진 크게 보기"><img src="gallery-15.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride looking back with a smile, her long train behind her"></button>
+      </div>
+      <button class="pic" type="button" aria-label="사진 크게 보기"><img src="gallery-16.jpg" loading="lazy" width="1000" height="1500" decoding="async" alt="Bride and groom holding hands, smiling at each other"></button>
     </div>
   </section>
 
@@ -346,7 +362,7 @@
       <img src="map.jpg" loading="lazy" alt="보테가마지오 약도: 수인분당선 서울숲역 5번 출구와 2호선 뚝섬역 8번 출구에서 갤러리아포레 G층으로 오는 길" width="1000" height="903">
       <span class="hint">눌러서 크게 보기</span>
     </button>
-    <p class="addr">보테가마지오 로스타뇨홀<small><span class="nb">서울 성동구</span> <span class="nb">서울숲2길 32-14</span> <span class="nb">갤러리아포레 G층 (지하 2층)</span><br><span class="nb">문의 02-3409-0123</span></small></p>
+    <p class="addr">보테가마지오 로스타뇨홀<small><span class="nb">서울 성동구</span> <span class="nb">서울숲2길 32-14</span> <span class="nb">갤러리아포레 G층 (지하 2층)</span><br><span class="nb">문의 <a href="tel:02-3409-0123">02-3409-0123</a></span></small></p>
     <button class="copy addr-copy" id="addrCopy" type="button">주소 복사</button>
     <div class="btns">
       <a class="btn ic" id="mapNaver" href="#" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.6 5.6 2l4.8 1.8L14.5 2v10.4l-4.1 1.6-4.8-1.8-4.1 1.6Z"/><path d="M5.6 2v10.2M10.4 3.8V14"/></svg><span>네이버 지도</span></a>
@@ -361,17 +377,11 @@
         <p class="stop">뚝섬역 8번 출구 정류장<span>지선 2016, 2224, 2413</span></p></details>
       <div><h3>자가용</h3><p>내비게이션에 "보테가마지오" 검색<br>건물 지하 B3~B7 주차<br>안내데스크에서 등록 시 2시간 무료</p></div>
     </div>
-    <div class="train">
-      <h3>멀리서 오시는 분들께</h3>
-      <p class="thanks"><span class="nb">먼 길 와 주시는 마음에</span> <span class="nb">깊이 감사드립니다.</span></p>
-      <p><span class="nb">2027년 2월 27일(토)</span> <span class="nb">기차표는</span> <span class="nb">2026년 12월 27일(일)</span> <span class="nb">오전 7시부터</span> <span class="nb">예매하실 수 있습니다.</span><br>
-        <span class="nb">수서역 출발/도착 열차는</span> <span class="nb">특히 빨리 매진되니,</span> <span class="nb">참고해 주시면 감사하겠습니다.</span></p>
-    </div>
   </section>
 
   <section class="account">
     <div class="h"><h2>마음 전하실 곳</h2></div>
-    <p class="acc-intro"><span class="nb">참석이 어려우신 분들을 위해</span> <span class="nb">계좌번호를 남깁니다.</span><br><span class="nb">너그러운 마음으로</span> <span class="nb">양해해 주세요.</span></p>
+    <p class="acc-intro"><span class="nb">참석이 어려우신 분들을 위해</span> <span class="nb">계좌번호를 남깁니다.</span><br><span class="nb">너그러운 마음으로</span> <span class="nb">양해 부탁드립니다.</span></p>
     <details>
       <summary>신랑 측</summary>
       <div class="acc" id="accGroom"></div>
@@ -404,6 +414,11 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="사진">
   <button class="close" type="button" id="lbClose">닫기</button>
   <img id="lbImg" alt="">
+  <div class="nav">
+    <button type="button" id="lbPrev" aria-label="이전 사진"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+    <span id="lbCount"></span>
+    <button type="button" id="lbNext" aria-label="다음 사진"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+  </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite">복사되었습니다</div>
 <div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="약도">
@@ -429,7 +444,8 @@ var WEDDING = {
   bride: { name: "이선애", phone: "010-6456-7514",
            father: null,
            mother: { name: "권성희", phone: "010-3080-7527" },
-           accounts: [ ["어머니 권성희","우리은행","944004521-02-001"] ] }
+           accounts: [ ["신부 이선애","국민은행","366501-01-211063"],
+                       ["어머니 권성희","우리은행","944004521-02-001"] ] }
 };
 
 (function(){
@@ -491,6 +507,9 @@ var WEDDING = {
   accounts(WEDDING.groom.accounts, $('accGroom'));
   accounts(WEDDING.bride.accounts, $('accBride'));
 
+  var telIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  telIcon.setAttribute('viewBox', '0 0 16 16'); telIcon.setAttribute('class', 'tel'); telIcon.setAttribute('aria-hidden', 'true');
+  telIcon.appendChild(document.createElementNS(telIcon.namespaceURI, 'path')).setAttribute('d', 'M4.6 1.8 6.4 4.3c.3.4.2 1-.1 1.3L5.3 6.6c.8 1.7 2.4 3.3 4.1 4.1l1-1c.4-.3.9-.4 1.3-.1l2.5 1.8c.4.3.5.9.2 1.3l-.9 1.3c-.4.6-1.1.9-1.8.7C6.9 13.6 2.4 9.1 1.3 4.5c-.2-.7.1-1.4.7-1.8l1.3-.9c.4-.3 1-.2 1.3.1Z');
   function side(title, role, p){
     var col = el('div');
     col.appendChild(el('h3', '', title));
@@ -500,6 +519,7 @@ var WEDDING = {
       a.href = 'tel:' + r[1].phone;
       a.appendChild(el('span', '', r[0]));
       a.appendChild(document.createTextNode(r[1].name));
+      a.appendChild(telIcon.cloneNode(true));
       col.appendChild(a);
     });
     return col;
@@ -575,17 +595,45 @@ var WEDDING = {
     document.addEventListener('visibilitychange', function(){ visible = !document.hidden; });
   })();
 
-  var lb = $('lb'), lbImg = $('lbImg'), lastPic = null;
-  Array.prototype.forEach.call(document.querySelectorAll('.pic'), function(btn){
+  var lb = $('lb'), lbImg = $('lbImg'), lastPic = null, cur = 0;
+  var pics = Array.prototype.slice.call(document.querySelectorAll('.pic'));
+  function srcAt(i){ return pics[(i + pics.length) % pics.length].querySelector('img').src; }
+  function view(i){
+    cur = (i + pics.length) % pics.length;
+    var im = pics[cur].querySelector('img');
+    lbImg.src = im.src; lbImg.alt = im.alt;
+    $('lbCount').textContent = (cur + 1) + ' / ' + pics.length;
+    new Image().src = srcAt(cur + 1); new Image().src = srcAt(cur - 1);
+  }
+  pics.forEach(function(btn, i){
     btn.addEventListener('click', function(){
-      var im = btn.querySelector('img'); lastPic = btn;
-      lbImg.src = im.src; lbImg.alt = im.alt;
+      lastPic = btn; view(i);
       lb.classList.add('on'); document.body.style.overflow = 'hidden'; $('lbClose').focus();
     });
   });
   function closeLb(){ lb.classList.remove('on'); document.body.style.overflow = ''; if (lastPic) lastPic.focus(); }
-  lb.addEventListener('click', closeLb);
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
+  $('lbPrev').addEventListener('click', function(){ view(cur - 1); });
+  $('lbNext').addEventListener('click', function(){ view(cur + 1); });
+  lb.querySelector('.nav').addEventListener('click', function(e){ e.stopPropagation(); });
+  var sx = null, sy = 0, swiped = false;
+  lb.addEventListener('touchstart', function(e){
+    swiped = false;
+    sx = e.touches.length === 1 ? e.touches[0].clientX : null;
+    sy = e.touches.length === 1 ? e.touches[0].clientY : 0;
+  }, { passive: true });
+  lb.addEventListener('touchend', function(e){
+    if (sx === null || e.touches.length || (window.visualViewport && visualViewport.scale > 1.05)) return;
+    var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; view(cur + (dx < 0 ? 1 : -1)); }
+  });
+  lb.addEventListener('click', function(){ if (swiped) { swiped = false; return; } closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') closeLb();
+    else if (e.key === 'ArrowLeft') view(cur - 1);
+    else if (e.key === 'ArrowRight') view(cur + 1);
+  });
 
   var zoom = $('zoom'), zimg = $('zoomImg'), mapBtn = $('mapOpen');
   function openZoom(){
